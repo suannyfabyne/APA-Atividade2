@@ -14,12 +14,12 @@ void printsort(int array[], int tam){
 
 }
 
-void quicksort(int *arr, int left, int right){
-    int min = (left+right)/2;
-    int i = left, j = right;
+void quicksort(int *arr, int esq, int dir){
+    int min = ((esq+dir)/2);
+    int i = esq, j = dir;
     int pivo = arr[min];
     int aux;
-    while(left<j || i<right) {
+    while(esq<j || i<dir) {
         while(arr[i]<pivo) i++;
         while(arr[j]>pivo) j--;
 
@@ -31,10 +31,10 @@ void quicksort(int *arr, int left, int right){
             j--;
         }
         else{
-            if(left<j)
-                quicksort(arr, left, j);
-            if(i<right)
-                quicksort(arr,i,right);
+            if(esq<j)
+                quicksort(arr, esq, j);
+            if(i<dir)
+                quicksort(arr,i,dir);
             return;
         }
     }
@@ -55,7 +55,6 @@ int main() {
 	 if (myReadFile.is_open()) {
 	 while (!myReadFile.eof()) {
 
-	cout << linhas << "aI" ;
 	    myReadFile >> output;
 	    array[linhas] = atoi(output);
 	   	linhas++;
@@ -64,8 +63,6 @@ int main() {
 	}
 	myReadFile.close();
 
-	int array2[6] = {7,4,2,9,1,3};
-	cout << linhas << "OI" ;
 	quicksort(array, 0, linhas-1);
 	printsort(array, linhas);
 	return 0;

@@ -8,41 +8,35 @@ void Printsort(int array[], int tam){
 	for (int i = 0; i < tam; ++i)
 	{
 		cout << "Order: " << i+1 << " - Number: " << array[i] << endl;
-		cout << "oi";
 	}
 
 }
 
-void Group(int vetor[], int ini, int meio, int fim, int vetAux[]) {
-    int esq = ini;
-    int dir = meio;
-    for (int i = ini; i < fim; ++i) {
-        if ((esq < meio) && ((dir >= fim) || (vetor[esq] < vetor[dir]))) {
-            vetAux[i] = vetor[esq];
-            ++esq;
+void Group(int arr[], int inicio, int meio, int fim, int aux[]) {
+    int inf = inicio;
+    int sup = meio;
+    for (int i = inicio; i < fim; ++i) {
+        if ((inf < meio) && ((sup >= fim) || (arr[inf] < arr[sup]))) {
+            aux[i] = arr[inf];
+            ++inf;
         }
         else {
-            vetAux[i] = vetor[dir];
-            ++dir;
+            aux[i] = arr[sup];
+            ++sup;
         }
     }
-    for (int i = ini; i < fim; ++i) {
-        vetor[i] = vetAux[i];
+    for (int i = inicio; i < fim; ++i) {
+        arr[i] = aux[i];
     }
 }
 
-void MergeSort(int vetor[], int inicio, int fim, int vetorAux[]) {
+void MergeSort(int arr[], int inicio, int fim, int aux[]) {
     if ((fim - inicio) < 2) return;
     
     int meio = ((inicio + fim)/2);
-    MergeSort(vetor, inicio, meio, vetorAux);
-    MergeSort(vetor, meio, fim, vetorAux);
-    Group(vetor, inicio, meio, fim, vetorAux);
-}
-
-void MergeSortAuxiliar(int vetor[], int tamanho) { 
-    int vetorAux[tamanho];
-    MergeSort(vetor, 0, tamanho, vetorAux);
+    MergeSort(arr, inicio, meio, aux);
+    MergeSort(arr, meio, fim, aux);
+    Group(arr, inicio, meio, fim, aux);
 }
 
 
@@ -70,7 +64,8 @@ int main() {
 	}
 	myReadFile.close();
 
-	MergeSortAuxiliar(array, linhas);
+	int aux[linhas];
+	MergeSort(array, 0, linhas, aux);
 	Printsort(array, linhas);
 	return 0;
 }
